@@ -25,34 +25,53 @@ class _TravelAppState extends State<TravelApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Luma Travel',
+
+      title: 'Luma',
+
       theme: AppTheme.theme,
+
       home: Scaffold(
-        body: pages[currentIndex],
-        bottomNavigationBar: NavigationBar(
-          selectedIndex: currentIndex,
-          onDestinationSelected: (index) {
-            setState(() {
-              currentIndex = index;
-            });
-          },
-          destinations: const [
-            NavigationDestination(
-              icon: Icon(Icons.home_outlined),
-              selectedIcon: Icon(Icons.home),
-              label: 'Home',
+        body: IndexedStack(
+          index: currentIndex,
+          children: pages,
+        ),
+
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(28),
+
+            child: NavigationBar(
+              selectedIndex: currentIndex,
+
+              onDestinationSelected: (index) {
+                setState(() {
+                  currentIndex = index;
+                });
+              },
+
+              destinations: const [
+                NavigationDestination(
+                  icon: Icon(Icons.home_outlined),
+                  selectedIcon: Icon(Icons.home_rounded),
+                  label: 'Home',
+                ),
+
+                NavigationDestination(
+                  icon: Icon(Icons.search_outlined),
+                  selectedIcon: Icon(Icons.search_rounded),
+                  label: 'Search',
+                ),
+
+                NavigationDestination(
+                  icon: Icon(Icons.person_outline_rounded),
+                  selectedIcon: Icon(Icons.person_rounded),
+                  label: 'Profile',
+                ),
+              ],
             ),
-            NavigationDestination(
-              icon: Icon(Icons.search_outlined),
-              selectedIcon: Icon(Icons.search),
-              label: 'Search',
-            ),
-            NavigationDestination(
-              icon: Icon(Icons.person_outline),
-              selectedIcon: Icon(Icons.person),
-              label: 'Profile',
-            ),
-          ],
+          ),
         ),
       ),
     );
